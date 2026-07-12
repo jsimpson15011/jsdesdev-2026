@@ -1,2 +1,0 @@
-# Blog
-## Recent Posts
