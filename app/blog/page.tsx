@@ -7,14 +7,19 @@ export default function BlogPage() {
   return (
     <main className="flex flex-1 w-full flex-col gap-12 bg-white px-8 py-16 font-serif text-zinc-950 dark:bg-black dark:text-zinc-50 sm:px-16">
       <div className="max-w-3xl">
-        <h1 className="text-4xl font-semibold tracking-normal">Projects and Technical Articles</h1>
+          <Link
+              href="/"
+              className="mb-6 block font-mono text-sm no-underline text-zinc-500 hover:text-accent-700 dark:text-zinc-400 dark:hover:text-accent-300"
+          >
+              Back to Home
+          </Link>
+        <h1 className="text-4xl font-semibold tracking-normal">Projects</h1>
         <p className="mt-4 max-w-2xl font-mono text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          And other musings and observations. Humorous and otherwise. From a life on the wild west of software development.
+          Selected work from software design, architecture, and full-stack product development.
         </p>
       </div>
 
-      <div className="grid w-full max-w-5xl gap-12 md:grid-cols-2">
-        <ContentList title="Blog" entries={content.blog} />
+      <div className="w-full max-w-5xl">
         <ContentList title="Projects" entries={content.projects} />
       </div>
     </main>

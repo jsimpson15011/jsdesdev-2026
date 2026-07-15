@@ -33,7 +33,7 @@ export default function RootLayout({
             className={`${ibmPlexSerif.variable} ${ibmPlexMono.variable} h-full antialiased`}
         >
         <body className="min-h-full flex flex-col items-center">
-        <nav className="bg-primary-900 dark:bg-gray-700 w-full py-4 px-16 border-accent-500 border-b-4">
+        <nav className="text-white bg-primary-900 dark:bg-gray-700 w-full py-4 px-16 border-accent-500 border-b-4">
             <div className="container mx-auto flex flex-wrap gap-2 items-center">
                 <Link href="/" className="flex items-center">
                     <Image

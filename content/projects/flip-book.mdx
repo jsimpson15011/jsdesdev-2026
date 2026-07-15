@@ -1,0 +1,142 @@
+---
+title: Flip Book
+description: Replacing Issuu with an in-house digital publishing platform.
+published: 2026-07-12
+category: Projects
+tags: Next.js, React, TypeScript, Express, MySQL, Redis, PDF Processing
+featured: true
+draft: false
+---
+
+# Flip Book
+
+Replacing Issuu with an in-house digital publishing platform.
+
+## Overview
+
+Evergreen Media relied on Issuu to publish digital magazines and catalogs. While the platform met our basic needs, recurring subscription costs and limited control over the publishing workflow made it a good candidate for an internal replacement.
+
+I designed and built a full-stack publishing platform that allowed our team to upload publications, manage them through an administrative interface, generate embeddable readers, track reader engagement, and serve large publications with significantly improved performance.
+
+## The Challenge
+
+At first glance, replacing Issuu appeared straightforward.
+
+The initial requirements were simple:
+
+- Upload PDFs
+- Display them as interactive flipbooks
+- Allow administrators to manage publications
+
+The project quickly evolved once real users began testing prototypes. Features that seemed unimportant, such as hyperlink overlays, analytics, and support for very large publications, turned out to be essential to the editorial workflow.
+
+Rather than treating changing requirements as project failure, I used rapid prototyping to expose hidden requirements early and iterate toward the final product.
+
+## Architecture
+
+
+<ArchitectureDiagram>
+    <ArchitectureRow>
+        <ArchitectureBox kind="client" label="Client">
+            Admin dashboard
+        </ArchitectureBox>
+        <ArchitectureArrow label="Express API" />
+        <ArchitectureBox kind="server" label="Queue">
+            Upload queue
+            (Bull + Redis)
+        </ArchitectureBox>
+    </ArchitectureRow>
+    <ArchitectureRow>
+        <ArchitectureSpacer />
+        <ArchitectureSpacer />
+        <ArchitectureArrow direction="down" />
+    </ArchitectureRow>
+    <ArchitectureRow>
+        <ArchitectureSpacer />
+        <ArchitectureSpacer />
+        <ArchitectureBox kind="server" label="Processing">
+            PDF processing
+            (pdf-poppler + Sharp)
+        </ArchitectureBox>
+    </ArchitectureRow>
+    <ArchitectureRow>
+        <ArchitectureSpacer />
+        <ArchitectureSpacer />
+        <ArchitectureArrow direction="down" />
+    </ArchitectureRow>
+    <ArchitectureRow>
+        <ArchitectureBox kind="client" label="Client">
+            Next.js PDF reader
+        </ArchitectureBox>
+        <ArchitectureTwoWayArrow label="Express API" />
+        <ArchitectureBox kind="database" label="Storage">
+            Optimized PDF assets
+        </ArchitectureBox>
+    </ArchitectureRow>
+</ArchitectureDiagram>
+
+## Interesting Engineering Decisions
+
+### Prototype first
+
+Building a working prototype surfaced requirements that never appeared during planning meetings.
+
+This ultimately changed both the feature set and the technical architecture before significant engineering effort had been invested.
+
+### Server-side preprocessing
+
+The initial prototype rendered PDFs on demand in the browser.
+
+That worked well for small documents but broke down when tested against production-sized catalogs containing hundreds of pages.
+
+Instead of rendering on the client, the backend converted PDFs into optimized PNG assets during upload.
+
+Benefits included:
+
+- Dramatically faster page loads
+- Predictable performance regardless of PDF complexity
+- Easier caching
+- Less work performed in the browser
+
+### Analytics as a first-class feature
+
+Replacing Issuu meant rebuilding more than a document viewer.
+
+The platform tracked publication views, reading sessions, clicks, and engagement metrics so editors could understand how readers interacted with publications.
+
+Rather than treating analytics as an afterthought, it became part of the platform architecture.
+
+## Results
+
+- Eliminated ongoing Issuu subscription costs
+- Replaced the organization's publishing workflow with an internally managed platform
+- Improved performance for large publications through server-side preprocessing
+- Added full administrative control over publishing and embeds
+- Delivered analytics tailored to editorial needs
+
+## Lessons Learned
+
+The largest challenge wasn't rendering PDFs.
+
+It was discovering what the software actually needed to become.
+
+Working prototypes exposed requirements that planning meetings never uncovered, reinforcing a lesson I've carried into every project since: build something early, put it in front of users, and let feedback shape the product.
+
+## Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- Express
+- MySQL
+- Redis
+- Bull Queue
+- PDF.js
+- pdf-poppler
+- Sharp
+- JWT Authentication
+
+## Source
+
+- [flip-book-front](https://github.com/evergreendev/flip-book-front)
+- [flip-book-back](https://github.com/evergreendev/flip-book-back)

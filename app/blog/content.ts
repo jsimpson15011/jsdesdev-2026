@@ -1,8 +1,10 @@
 import { evaluate } from "@mdx-js/mdx";
 import { existsSync, readdirSync, readFileSync, statSync } from "fs";
 import path from "path";
+import { createElement } from "react";
 import type { ComponentType } from "react";
 import * as runtime from "react/jsx-runtime";
+import { useMDXComponents } from "@/mdx-components";
 
 const contentRoot = path.join(process.cwd(), "content");
 const contentTypes = ["blog", "projects"] as const;
@@ -48,7 +50,11 @@ export async function getContentComponent(entry: ContentEntry) {
     { ...runtime, baseUrl: import.meta.url },
   );
 
-  return Content as ComponentType;
+  return function ContentWithComponents() {
+    return createElement(Content as ComponentType<{ components: ReturnType<typeof useMDXComponents> }>, {
+      components: useMDXComponents(),
+    });
+  } as ComponentType;
 }
 
 function getContentEntries(type: ContentType) {
