@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   getAllContentEntries,
@@ -10,6 +11,54 @@ export function generateStaticParams() {
   return getAllContentEntries().map((entry) => ({
     slug: entry.slug,
   }));
+}
+
+export async function generateMetadata(
+  props: PageProps<"/blog/[slug]">,
+): Promise<Metadata> {
+  const { slug } = await props.params;
+  const entry = getContentEntry(slug);
+
+  if (!entry) {
+    return {
+      title: "Not Found",
+    };
+  }
+
+  const title = entry.title;
+  const description =
+    entry.description ??
+    `${entry.title} by Joseph Simpson, covering ${entry.tags.join(", ")}.`;
+  const url = `/blog/${entry.slug}`;
+
+  return {
+    title,
+    description,
+    keywords: entry.tags,
+    openGraph: {
+      title: `${title} | Joseph Simpson`,
+      description,
+      url,
+      type: "article",
+      publishedTime: entry.published,
+      authors: ["Joseph Simpson"],
+      tags: entry.tags,
+      images: [
+        {
+          url: "/bracket-logo.png",
+          width: 431,
+          height: 576,
+          alt: "Joseph Simpson bracket logo",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary",
+      title: `${title} | Joseph Simpson`,
+      description,
+      images: ["/bracket-logo.png"],
+    },
+  };
 }
 
 export default async function ContentPage(props: PageProps<"/blog/[slug]">) {

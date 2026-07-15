@@ -1,5 +1,25 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getGroupedContent, type ContentEntry } from "./content";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Selected work from Joseph Simpson in software design, architecture, and full-stack product development.",
+  openGraph: {
+    title: "Projects | Joseph Simpson",
+    description:
+      "Selected work from Joseph Simpson in software design, architecture, and full-stack product development.",
+    url: "/blog",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Projects | Joseph Simpson",
+    description:
+      "Selected work from Joseph Simpson in software design, architecture, and full-stack product development.",
+  },
+};
 
 export default function BlogPage() {
   const content = getGroupedContent();
