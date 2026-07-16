@@ -6,6 +6,7 @@ import {
     ArchitectureRow,
     ArchitectureSpacer,
     ArchitectureTwoWayArrow,
+    ArchitectureTwoWayVerticalArrow,
 } from "@/app/components/ArchitectureDiagram";
 
 const components = {
@@ -15,6 +16,7 @@ const components = {
     ArchitectureRow,
     ArchitectureSpacer,
     ArchitectureTwoWayArrow,
+    ArchitectureTwoWayVerticalArrow,
 } satisfies MDXComponents
 
 export function useMDXComponents(): MDXComponents {

@@ -1,0 +1,80 @@
+---
+title: United Way Workplace Giving Platform
+description: A custom workplace giving platform built for United Way of the Black Hills to manage annual employee giving campaigns across 35 participating companies.
+published: 2026-07-12
+category: Projects
+tags: Next.js, React, TypeScript, MySQL
+featured: true
+draft: false
+---
+
+# United Way Workplace Giving Platform
+
+## Modernizing workplace giving across 35 participating companies
+
+United Way of the Black Hills coordinates annual workplace giving campaigns with businesses throughout the region. Managing those campaigns requires tracking participating companies, employee pledge forms, campaign administrators, and donation records across a recurring annual process.
+
+I designed and built a custom web platform to centralize that workflow into a single application. Employees receive a streamlined pledge experience, while United Way administrators can manage companies, campaigns, users, and submissions from one secure dashboard.
+
+[View the source code on GitHub](https://github.com/jsimpson15011/United-Way-Workplace-Giving-Platform)
+
+## The challenge
+
+The platform needed to serve two distinct groups with very different requirements.
+
+Employees needed a simple, responsive experience that allowed them to complete a workplace giving pledge with as little friction as possible.
+
+Administrators needed a more comprehensive system capable of managing 35 participating companies, organizing annual campaigns, administering users, and reviewing pledge submissions while maintaining security and data integrity.
+
+The project began as a need for online pledge forms, but the underlying problem was broader. United Way needed a reliable system for managing the full workplace-giving workflow.
+
+## The solution
+
+I built a production application using Next.js, TypeScript, and MySQL, with a clear separation between public pledge workflows and authenticated administrative tools.
+
+The platform includes:
+
+- Employee workplace-giving pledge forms
+- Company management
+- Annual campaign administration
+- User management
+- Role-based authentication and authorization
+- Pledge review and administration
+- Server-side validation
+- Responsive employee and administrative interfaces
+
+The result is a centralized platform supporting annual workplace-giving campaigns across 35 participating companies.
+
+## Architecture
+
+<ArchitectureDiagram layout="single">
+    <ArchitectureRow>
+        <ArchitectureBox kind="client" label="Client">
+            <strong className="block">Employee Pledge Forms</strong>
+        </ArchitectureBox>
+    </ArchitectureRow>
+    <ArchitectureRow>
+        <ArchitectureArrow direction="down" />
+    </ArchitectureRow>
+    <ArchitectureRow>
+        <ArchitectureBox kind="server" label="Server">
+            <strong className="block">Server Actions</strong>
+        </ArchitectureBox>
+    </ArchitectureRow>
+    <ArchitectureRow>
+        <ArchitectureArrow direction="down" />
+    </ArchitectureRow>
+    <ArchitectureRow>
+        <ArchitectureBox kind="database" label="Database">
+            <strong className="block">MySQL</strong>
+        </ArchitectureBox>
+    </ArchitectureRow>
+    <ArchitectureRow>
+        <ArchitectureTwoWayVerticalArrow />
+    </ArchitectureRow>
+    <ArchitectureRow>
+        <ArchitectureBox kind="server" label="Server">
+            <strong className="block">Admin Dashboard</strong>
+        </ArchitectureBox>
+    </ArchitectureRow>
+</ArchitectureDiagram>

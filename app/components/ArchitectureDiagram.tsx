@@ -66,10 +66,19 @@ const arrowAssets: Record<
     },
 };
 
-export function ArchitectureDiagram({children}: { children: ReactNode }) {
+export function ArchitectureDiagram({
+                                        children,
+                                        layout = "grid",
+                                    }: {
+    children: ReactNode;
+    layout?: "grid" | "single";
+}) {
+    const layoutClassName =
+        layout === "single" ? "w-full max-w-64" : "min-w-152 max-w-384";
+
     return (
         <div className="not-prose relative overflow-x-auto border border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-800 dark:bg-zinc-950 sm:p-4">
-            <div className="mx-auto flex min-w-152 max-w-384 flex-col items-center gap-3">
+            <div className={`mx-auto flex flex-col items-center gap-0 ${layoutClassName}`}>
                 {children}
             </div>
         </div>
@@ -168,6 +177,34 @@ export function ArchitectureTwoWayArrow({label}: { label?: string }) {
                     width={463}
                     height={191}
                     className="h-7 w-20 -scale-x-100 object-contain opacity-90 sm:h-8 sm:w-24"
+                />
+            </div>
+            {label ? (
+                <span className="max-w-32 text-center font-mono text-[0.55rem] font-semibold uppercase tracking-normal text-zinc-500 dark:text-zinc-400">
+                    {label}
+                </span>
+            ) : null}
+        </div>
+    );
+}
+
+export function ArchitectureTwoWayVerticalArrow({label}: { label?: string }) {
+    return (
+        <div className="flex w-48 shrink-0 flex-col items-center gap-1">
+            <div className="flex items-center justify-center gap-1">
+                <Image
+                    src="/down-arrow.png"
+                    alt=""
+                    width={137}
+                    height={395}
+                    className="h-16 w-7 object-contain opacity-90 sm:h-20 sm:w-8"
+                />
+                <Image
+                    src="/down-arrow.png"
+                    alt=""
+                    width={137}
+                    height={395}
+                    className="h-16 w-7 -scale-y-100 object-contain opacity-90 sm:h-20 sm:w-8"
                 />
             </div>
             {label ? (

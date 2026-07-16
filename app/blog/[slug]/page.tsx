@@ -78,7 +78,7 @@ export default async function ContentPage(props: PageProps<"/blog/[slug]">) {
           href="/blog"
           className="font-mono text-sm no-underline text-zinc-500 hover:text-accent-700 dark:text-zinc-400 dark:hover:text-accent-300"
         >
-          Back to all posts
+          Back to all projects
         </Link>
         <p className="mt-8 font-mono text-sm font-semibold uppercase tracking-normal text-accent-700 dark:text-accent-300">
           {entry.type}
