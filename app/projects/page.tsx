@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "Projects | Joseph Simpson",
     description:
       "Selected work from Joseph Simpson in software design, architecture, and full-stack product development.",
-    url: "/blog",
+    url: "/projects",
     type: "website",
   },
   twitter: {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogPage() {
+export default function ProjectsPage() {
   const content = getGroupedContent();
 
   return (
@@ -63,7 +63,7 @@ function ContentList({
           {entries.map((entry) => (
             <li key={`${entry.type}-${entry.slug}`}>
               <Link
-                href={`/blog/${entry.slug}`}
+                href={`/projects/${entry.slug}`}
                 className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
               >
                 <h3 className="text-2xl font-semibold tracking-normal group-hover:text-accent-700 dark:group-hover:text-accent-300">

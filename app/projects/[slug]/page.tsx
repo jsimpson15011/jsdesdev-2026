@@ -14,7 +14,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  props: PageProps<"/blog/[slug]">,
+  props: PageProps<"/projects/[slug]">,
 ): Promise<Metadata> {
   const { slug } = await props.params;
   const entry = getContentEntry(slug);
@@ -29,7 +29,7 @@ export async function generateMetadata(
   const description =
     entry.description ??
     `${entry.title} by Joseph Simpson, covering ${entry.tags.join(", ")}.`;
-  const url = `/blog/${entry.slug}`;
+  const url = `/projects/${entry.slug}`;
 
   return {
     title,
@@ -61,7 +61,7 @@ export async function generateMetadata(
   };
 }
 
-export default async function ContentPage(props: PageProps<"/blog/[slug]">) {
+export default async function ContentPage(props: PageProps<"/projects/[slug]">) {
   const { slug } = await props.params;
   const entry = getContentEntry(slug);
 
@@ -75,7 +75,7 @@ export default async function ContentPage(props: PageProps<"/blog/[slug]">) {
     <main className="w-full bg-white px-8 py-16 font-serif text-zinc-950 dark:bg-black dark:text-zinc-50 sm:px-16">
       <article className="prose prose-zinc max-w-3xl dark:prose-invert">
         <Link
-          href="/blog"
+          href="/projects"
           className="font-mono text-sm no-underline text-zinc-500 hover:text-accent-700 dark:text-zinc-400 dark:hover:text-accent-300"
         >
           Back to all projects

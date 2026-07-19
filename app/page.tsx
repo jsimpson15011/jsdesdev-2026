@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {getGroupedContent, type ContentEntry} from "./blog/content";
+import {getGroupedContent, type ContentEntry} from "@/app/projects/content";
 
 const contactLinks = [
     {
@@ -44,7 +44,7 @@ export default function Home() {
                         <h2 className="text-3xl font-semibold tracking-normal">Projects</h2>
                     </div>
                     <Link
-                        href="/blog"
+                        href="/projects"
                         className="font-mono text-sm font-semibold uppercase tracking-normal text-accent-700 hover:text-accent-900 dark:text-accent-300 dark:hover:text-accent-100"
                     >
                         View all projects
@@ -102,7 +102,7 @@ function ProjectList({projects}: { projects: ContentEntry[] }) {
                     key={project.slug}
                     className="border border-zinc-200 p-5 dark:border-zinc-800"
                 >
-                    <Link href={`/blog/${project.slug}`} className="group block">
+                    <Link href={`/projects/${project.slug}`} className="group block">
                         <h3 className="mt-3 text-2xl font-semibold tracking-normal group-hover:text-accent-700 dark:group-hover:text-accent-300">
                             {project.title}
                         </h3>
