@@ -18,6 +18,7 @@ export type ContentEntry = {
   title: string;
   description?: string;
   published?: string;
+  featured: boolean;
   tags: string[];
   extension: string;
 };
@@ -82,6 +83,7 @@ function getContentEntries(type: ContentType) {
         title: frontmatter.title || titleFromSlug(slug),
         published: frontmatter.published,
         description: frontmatter.description,
+        featured: parseBoolean(frontmatter.featured),
         tags: parseTags(frontmatter.tags),
       };
     })
@@ -155,4 +157,8 @@ function parseTags(tags?: string) {
     .split(",")
     .map((tag) => tag.trim())
     .filter(Boolean);
+}
+
+function parseBoolean(value?: string) {
+  return value?.toLowerCase() === "true";
 }

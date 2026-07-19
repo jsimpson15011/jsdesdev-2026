@@ -20,7 +20,8 @@ const contactLinks = [
 ];
 
 export default function Home() {
-    const projects = getGroupedContent().projects.slice(0, 3);
+    const featuredProject = getFeaturedProject(getGroupedContent().projects);
+    const projects = featuredProject ? [featuredProject] : [];
 
     return (
         <main
@@ -37,7 +38,21 @@ export default function Home() {
                     real problems while remaining intuitive, reliable, and enjoyable to use.
                 </p>
             </section>
+            <section className="max-w-5xl">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                        <h2 className="text-3xl font-semibold tracking-normal">Projects</h2>
+                    </div>
+                    <Link
+                        href="/blog"
+                        className="font-mono text-sm font-semibold uppercase tracking-normal text-accent-700 hover:text-accent-900 dark:text-accent-300 dark:hover:text-accent-100"
+                    >
+                        View all projects
+                    </Link>
+                </div>
 
+                <ProjectList projects={projects}/>
+            </section>
             <section className="border-y border-zinc-200 py-8 dark:border-zinc-800">
                 <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
                     <div>
@@ -66,21 +81,7 @@ export default function Home() {
                     </dl>
                 </div>
             </section>
-            <section className="max-w-5xl">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                        <h2 className="text-3xl font-semibold tracking-normal">Projects</h2>
-                    </div>
-                    <Link
-                        href="/blog"
-                        className="font-mono text-sm font-semibold uppercase tracking-normal text-accent-700 hover:text-accent-900 dark:text-accent-300 dark:hover:text-accent-100"
-                    >
-                        View all projects
-                    </Link>
-                </div>
 
-                <ProjectList projects={projects}/>
-            </section>
         </main>
     );
 }
@@ -95,16 +96,13 @@ function ProjectList({projects}: { projects: ContentEntry[] }) {
     }
 
     return (
-        <ul className="mt-8 grid gap-6 lg:grid-cols-3">
+        <ul className="mt-8 grid max-w-2xl gap-6">
             {projects.map((project) => (
                 <li
                     key={project.slug}
                     className="border border-zinc-200 p-5 dark:border-zinc-800"
                 >
                     <Link href={`/blog/${project.slug}`} className="group block">
-                        <p className="font-mono text-xs font-semibold uppercase tracking-normal text-zinc-500 dark:text-zinc-400">
-                            {formatPublishedDate(project.published)}
-                        </p>
                         <h3 className="mt-3 text-2xl font-semibold tracking-normal group-hover:text-accent-700 dark:group-hover:text-accent-300">
                             {project.title}
                         </h3>
@@ -119,6 +117,12 @@ function ProjectList({projects}: { projects: ContentEntry[] }) {
             ))}
         </ul>
     );
+}
+
+function getFeaturedProject(projects: ContentEntry[]) {
+    const featuredProjects = projects.filter((project) => project.featured);
+
+    return featuredProjects[0] ?? projects[0];
 }
 
 function TagList({tags}: { tags: string[] }) {
@@ -138,23 +142,4 @@ function TagList({tags}: { tags: string[] }) {
             ))}
         </ul>
     );
-}
-
-function formatPublishedDate(published?: string) {
-    if (!published) {
-        return "Undated";
-    }
-
-    const date = new Date(published);
-
-    if (Number.isNaN(date.getTime())) {
-        return "Undated";
-    }
-
-    return new Intl.DateTimeFormat("en", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        timeZone: "UTC",
-    }).format(date);
 }
