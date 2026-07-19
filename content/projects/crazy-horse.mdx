@@ -1,0 +1,202 @@
+---
+
+title: Rebuilding the Crazy Horse Memorial Digital Experience
+description: A complete rebuild of the Crazy Horse Memorial website, migrating years of legacy ExpressionEngine content into a custom Payload CMS and Next.js platform serving more than 600,000 users annually. The new architecture combines a flexible editorial system, user-focused information design, dynamic SEO, live previews, search, forms, and targeted cache revalidation.
+published: 2026-07-19
+category: Projects
+tags: Next.js, React, TypeScript, Payload CMS, PostgreSQL, ExpressionEngine, CMS Migration, SEO
+featured: true
+draft: false
+------------
+
+# Rebuilding the Crazy Horse Memorial Digital Experience
+
+Modernizing the website and editorial platform for one of South Dakota's most visited destinations.
+
+## Overview
+
+The Crazy Horse Memorial website serves more than **600,000 users annually** and acts as the primary digital resource for people planning a visit, learning about the Memorial's history, exploring its museums and cultural programming, or supporting its mission.
+
+Working from a visual design created by our lead designer, I built every part of the new technical platform. That included the public Next.js website, the Payload CMS backend, its content models and permissions, the integration between the two applications, and the migration of years of legacy content from ExpressionEngine.
+
+The result was more than a visual redesign. It was a replacement for the Memorial's underlying publishing platform, designed to improve the visitor experience while giving staff a flexible system they could continue using and expanding.
+
+## The Challenge
+
+The Memorial encompasses much more than the mountain carving.
+
+Its website represents the museums, the Indian University of North America, cultural programming, visitor services, events, dining, retail, employment, fundraising, and the broader mission of the organization. Each department had valid priorities and wanted its work represented prominently.
+
+Analytics provided a clearer view of what users actually needed.
+
+Approximately **70% of website users visited the visit-planning page**, demonstrating that practical visitor information was the site's dominant use case. That evidence helped align stakeholders around a visitor-first information architecture.
+
+The new experience needed to make planning a visit straightforward without reducing the Memorial to a tourist attraction. Once visitors found the information they came for, the site could guide them toward its history, museums, educational work, and continuing mission.
+
+At the same time, the project required replacing a long-running ExpressionEngine installation without losing years of content, URLs, metadata, or institutional knowledge.
+
+## My Role
+
+I was the sole engineer responsible for the implementation of the platform.
+
+My work included:
+
+* Architecting the frontend and backend applications
+* Building the Next.js website from the approved visual design
+* Designing the Payload CMS content model
+* Developing reusable page-building components
+* Creating the ExpressionEngine-to-Payload migration process
+* Implementing search, forms, events, redirects, previews, and SEO
+* Defining role-based editorial access
+* Connecting CMS publishing actions to frontend cache invalidation
+
+## Interesting Engineering Decisions
+
+### Migrating content instead of starting over
+
+The most difficult technical problem was not building the frontend. It was translating years of ExpressionEngine data into a substantially different content system.
+
+The legacy site contained more than text and images. Its data represented relationships, navigation structures, page layouts, metadata, internal links, media, and specialized content types.
+
+I created a migration process that transformed this legacy data into Payload's structured collections, globals, relationships, and reusable content blocks. This allowed the organization to retain its existing material without forcing editors to manually rebuild the entire site.
+
+Migration also required treating URLs as permanent product data. Redirect support and compatibility routes were incorporated into the new platform so old links could continue leading users and search engines to the correct content.
+
+### A block-based editorial system
+
+The previous content structure was replaced with a modular page-building system.
+
+I created reusable blocks for content such as:
+
+* Headers and rich text
+* Galleries and media
+* Event calendars
+* Museum collections
+* Timelines
+* Admission and operating hours
+* Forms and file uploads
+* Comparison sliders
+* Employment listings
+* Embedded content
+* Navigation menus
+* Live webcam imagery
+
+Each block has a corresponding CMS definition and frontend renderer. Editors can assemble pages from structured components while the public site maintains consistent presentation and behavior.
+
+This struck a balance between two competing needs: editorial flexibility and a maintainable design system.
+
+### Content modeled around the organization
+
+Not every part of the site belonged in a generic page collection.
+
+I created dedicated content types for events, news, press releases, museum collections, employment opportunities, student spotlights, support content, and stories about the Memorial's continuing impact.
+
+This made the content easier to manage and allowed the frontend to provide specialized routing, filtering, relationships, and displays for each type.
+
+### Publishing without rebuilding everything
+
+The frontend uses targeted cache tags tied to individual collections and document slugs.
+
+When an editor publishes a change in Payload, a CMS hook calls a protected revalidation endpoint in the Next.js application. The frontend then invalidates only the affected content rather than requiring a complete site rebuild.
+
+This provides the performance benefits of cached server-rendered content while allowing editorial updates to appear promptly.
+
+### Live previews for editors
+
+Editors needed to see how changes would look before publishing them.
+
+I integrated Payload's draft system and live-preview tools with the Next.js frontend. Authorized preview URLs load draft content and update the rendered page as editors work, giving staff immediate feedback without exposing unfinished material publicly.
+
+### SEO built into the publishing workflow
+
+Search visibility could not be treated as a post-launch task during a migration of this size.
+
+The platform includes:
+
+* CMS-managed titles and descriptions
+* Dynamically generated Next.js metadata
+* Canonical URL handling
+* Open Graph metadata
+* Structured, content-aware sitemap generation
+* Configurable redirects
+* Compatibility routes for legacy URLs
+* Search indexing across multiple content collections
+
+SEO controls are part of the content model, allowing editors to maintain metadata without changing application code.
+
+### Role-based editorial access
+
+Different departments needed to manage different parts of the site without receiving unrestricted administrative access.
+
+The CMS defines roles and collection-level access rules for administrators, museum managers, employment managers, form managers, and other editorial users. These permissions control which records users can read, create, update, publish, or delete.
+
+The result is a shared CMS that supports departmental ownership while protecting unrelated content and administrative settings.
+
+### More than a page editor
+
+The backend also became an operational tool for the organization.
+
+In addition to publishing content, it supports:
+
+* Search across multiple content types
+* Dynamic forms with file uploads
+* Spam prevention through reCAPTCHA
+* Email notifications for submissions
+* Submission exports
+* Resending submission emails
+* Event and category management
+* Site-wide navigation and footer management
+* Announcements, operating hours, admission information, and other global content
+
+This allowed several workflows that would otherwise require separate tools or developer intervention to live within the same platform.
+
+## Results
+
+* Rebuilt the public website as a modern Next.js application
+* Migrated years of ExpressionEngine content into Payload CMS
+* Created a structured, reusable content system for a complex organization
+* Used analytics to align stakeholders around a visitor-first experience
+* Built a platform serving more than **600,000 users annually**
+* Added dedicated editorial workflows for multiple departments
+* Implemented role-based permissions rather than unrestricted CMS access
+* Added live draft previews and targeted cache revalidation
+* Incorporated redirects, metadata, sitemaps, and legacy URL handling into the migration
+* Consolidated content, events, search, forms, and operational tools into one platform
+* Delivered the complete technical implementation as the project's sole engineer
+
+## Lessons Learned
+
+The hardest part of rebuilding a large website is rarely the component code.
+
+It is understanding what the existing system represents, determining which parts must be preserved, and translating years of accumulated content and organizational knowledge into a better model.
+
+The project also reinforced the importance of separating stakeholder priorities from user priorities without dismissing either. Each department had a legitimate story to tell, but analytics showed that most users first needed practical information about visiting.
+
+By meeting that immediate need clearly, the site could create a better path into the Memorial's larger history, mission, and educational work.
+
+Successful product engineering requires both sides of that equation: listening carefully to stakeholders and remaining disciplined about what users are actually trying to accomplish.
+
+## Tech Stack
+
+* Next.js
+* React
+* TypeScript
+* Payload CMS
+* Node.js
+* Express
+* PostgreSQL
+* Tailwind CSS
+* Payload Lexical Editor
+* REST APIs
+* Server Components
+* On-demand cache revalidation
+* Payload Live Preview
+* Role-based access control
+* Dynamic metadata
+* Sitemap generation
+* Full-site search
+
+## Source
+* [Crazy Horse Memorial](https://crazyhorsememorial.org/)
+* [crazy-horse-front-end](https://github.com/evergreendev/crazy-horse-front-end)
+* [crazy-horse-back-end](https://github.com/evergreendev/crazy-horse-back-end)
